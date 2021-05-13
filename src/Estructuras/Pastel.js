@@ -31,8 +31,35 @@ export default class Pastel extends Component {
         // var peticion   = await fetch("http://35.222.55.115:8080/type")  
         // var respuestat = await peticion.json();
 
+        let peticion = {
+            location: this.state.filtro
+        }
         //genders
+        var respu = []
+        console.log(peticion);
+        await axios.post("http://34.66.140.170:8080/genders", peticion)
+        .then(
+            (response)=>{
+                respu = response.data;
+                var respuestat = respu;
+                this.setState({respuesta: respu});
 
+                var estadot=[]
+                var porcentajet=[]
+
+                this.state.respuesta.forEach((elemento) => {
+                    estadot.push(elemento.gender);
+                    porcentajet.push(elemento.porcent);
+                });
+
+                this.setState({estado: estadot, porcentajes: porcentajet});
+                this.generarC_();
+                this.configuracionG_();
+            }
+        )
+        .catch(err=>{});
+
+        /*
         var respu = [{
             gender: 'male',
             porcent: 3
@@ -40,26 +67,9 @@ export default class Pastel extends Component {
         {
             gender: 'female',
             porcent: 66
-        }]
+        }]*/
 
-        var respuestat = JSON.parse(JSON.stringify(respu))
-
-        this.setState({respuesta: respu});
-
-        var estadot=[]
-        var porcentajet=[]
-
-        this.state.respuesta.forEach((elemento) => {
-            estadot.push(elemento.gender);
-            porcentajet.push(elemento.porcent);
-        });
-
-        this.setState({estado: estadot, porcentajes: porcentajet});
-        console.log(this.state.estado)
-        console.log(this.state.porcentajes)
-        console.log(respuestat)
-        this.generarC_();
-        this.configuracionG_();
+        
     }
     //Generar Caracter de manera aleatoria
     generar_(){
@@ -120,8 +130,8 @@ export default class Pastel extends Component {
                 this.setState({
                     curTime : new Date().toLocaleString()
                 })
-            },3000)
-            setInterval(this.peticion, 3000);
+            },5000)
+            setInterval(this.peticion, 5000);
         }catch(error){
 
         }

@@ -7,9 +7,6 @@ import Almacen from '../Componentes/Almacen'
 import Mapa from '../Componentes/Mapa'
 import Vacuna from '../Componentes/Vacuna'
 
-import General from '../Componentes/General'
-
-
 export default function Nav(){
 
     return(
